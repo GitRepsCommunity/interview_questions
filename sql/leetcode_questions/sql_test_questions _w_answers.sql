@@ -617,3 +617,96 @@ VALUES
 ('103','45251.1023263889','45251.1696875','980','Streamer'),
 ('102','45248.3070486111','45248.6403819444','605','Streamer');
 
+/*
+Question 6
+
+Table: World
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| name        | varchar |
+| continent   | varchar |
+| area        | int     |
+| population  | int     |
+| gdp         | bigint  |
++-------------+---------+
+name is the primary key (column with unique values) for this table.
+Each row of this table gives information about the name of a country, 
+the continent to which it belongs, its area, the population, and its GDP value.
+
+A country is big if:
+
+it has an area of at least three million (i.e., 3000000 km2), or
+it has a population of at least twenty-five million (i.e., 25000000).
+Write a solution to find the name, population, and area of the big countries.
+
+Return the result table in any order.
+
+The result format is in the following example.
+
+Example 1:
+
+Input: 
+World table:
++-------------+-----------+---------+------------+--------------+
+| name        | continent | area    | population | gdp          |
++-------------+-----------+---------+------------+--------------+
+| Afghanistan | Asia      | 652230  | 25500100   | 20343000000  |
+| Albania     | Europe    | 28748   | 2831741    | 12960000000  |
+| Algeria     | Africa    | 2381741 | 37100000   | 188681000000 |
+| Andorra     | Europe    | 468     | 78115      | 3712000000   |
+| Angola      | Africa    | 1246700 | 20609294   | 100990000000 |
++-------------+-----------+---------+------------+--------------+
+Output: 
++-------------+------------+---------+
+| name        | population | area    |
++-------------+------------+---------+
+| Afghanistan | 25500100   | 652230  |
+| Algeria     | 37100000   | 2381741 |
++-------------+------------+---------+
+
+*/
+
+SELECT
+    name,
+    population,
+    area
+FROM world
+WHERE area >= 3000000
+OR population >= 25000000;
+
+/*
+
+Question 7
+
+Table: Weather
+
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| id            | int     |
+| recordDate    | date    |
+| temperature   | int     |
++---------------+---------+
+id is the column with unique values for this table.
+This table contains information about the temperature on a certain day.
+ 
+
+Write a solution to find all dates' Id with higher temperatures compared to its previous dates (yesterday).
+
+Return the result table in any order.
+
+The result format is in the following example.
+
+*/
+
+-- I like this one as it is a one table problem, but the table needs to be joined to itself
+-- We need to use a condition in the JOIN -> we want the join to return a view of the temp for
+-- current date and the previous date
+
+SELECT id
+FROM weather w1
+JOIN weather w2 ON DATEDIFF(w1.recorddate, w2.recorddate) = 1
+WHERE w1.tempurature > w2.tempurature
+
