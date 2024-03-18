@@ -2,6 +2,8 @@
 
 -- Create and populate table to test queries
 
+DROP TABLE IF EXISTS employee;
+
 CREATE TABLE IF NOT EXISTS employee (
     employee_id INT PRIMARY KEY,
     department VARCHAR(20),
